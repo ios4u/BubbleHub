@@ -261,7 +261,6 @@
     self.getRestaurantListWebOperation.longitude = [NSNumber numberWithDouble:(double)coordinates.longitude];
     self.getRestaurantListWebOperation.clientID = [[BHSettings settings] clientID];
     self.getRestaurantListWebOperation.clientSecret = [[BHSettings settings] clientSecret];
-    self.getRestaurantListWebOperation.categoryID = [[BHSettings settings] categoryID];
     
     __weak BHNearbyViewController* viewController = self;
     [self.getRestaurantListWebOperation setSuccessBlock:^(id result) {
@@ -279,7 +278,6 @@
     self.getRestaurantListWebOperation.radius = [NSNumber numberWithDouble:radius];
     self.getRestaurantListWebOperation.clientID = [[BHSettings settings] clientID];
     self.getRestaurantListWebOperation.clientSecret = [[BHSettings settings] clientSecret];
-    self.getRestaurantListWebOperation.categoryID = [[BHSettings settings] categoryID];
     
     __weak BHNearbyViewController* viewController = self;
     [self.getRestaurantListWebOperation setSuccessBlock:^(id result) {

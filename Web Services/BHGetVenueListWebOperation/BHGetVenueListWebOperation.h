@@ -17,7 +17,6 @@
 
 @property (strong, nonatomic) NSString* clientID;
 @property (strong, nonatomic) NSString* clientSecret;
-@property (strong, nonatomic) NSString* categoryID;
 @property (strong, nonatomic) NSNumber* radius;           // Radius of search in meters (optional)
 
 @end

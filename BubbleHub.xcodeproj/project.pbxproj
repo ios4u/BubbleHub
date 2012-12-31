@@ -754,6 +754,7 @@
 				FE7E3B9C166DA0BC00E9F1E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

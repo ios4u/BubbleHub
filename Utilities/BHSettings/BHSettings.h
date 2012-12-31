@@ -15,9 +15,8 @@ typedef enum {
 
 @interface BHSettings : NSObject
 
-@property (strong, nonatomic) NSString* clientID;
-@property (strong, nonatomic) NSString* clientSecret;
-@property (strong, nonatomic) NSString* categoryID; //For Peruvian restaurants
+@property (readonly, nonatomic) NSString* clientID;
+@property (readonly, nonatomic) NSString* clientSecret;
 @property (assign, nonatomic) BHDistanceUnit distanceUnit;
 
 + (id)settings;

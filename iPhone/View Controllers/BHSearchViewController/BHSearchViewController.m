@@ -121,7 +121,6 @@
     self.getRestaurantListWebOperation.geocodableString = geocodableString;
     self.getRestaurantListWebOperation.clientID = [[BHSettings settings] clientID];
     self.getRestaurantListWebOperation.clientSecret = [[BHSettings settings] clientSecret];
-    self.getRestaurantListWebOperation.categoryID = [[BHSettings settings] categoryID];
     
     [self.getRestaurantListWebOperation setSuccessBlock:^(id result) {
         [viewController getRestaurantListOperationSuccess];

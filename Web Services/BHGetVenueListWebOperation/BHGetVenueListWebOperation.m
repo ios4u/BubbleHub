@@ -12,24 +12,6 @@
 #import "BHSettings.h"
 #import "NSObject+Extensions.h"
 
-#define RESPONSE_DICTIONARY @"response"
-#define VENUES_ARRAY @"venues"
-
-#define RESTAURANT_ID @"id"
-#define RESTAURANT_NAME @"name"
-#define RESTAURANT_CONTACT_DICTIONARY @"contact"
-#define RESTAURANT_PHONE @"formattedPhone"
-#define RESTAURANT_LOCATION_DICTIONARY @"location"
-#define RESTAURANT_ADDRESS @"address"
-#define RESTAURANT_CROSS_STREET @"crossStreet"
-#define RESTAURANT_LATITUDE @"lat"
-#define RESTAURANT_LONGITUDE @"lng"
-#define RESTAURANT_DISTANCE @"distance"  //measured in meters
-#define RESTAURANT_POSTAL_CODE @"postalCode"
-#define RESTAURANT_CITY @"city"
-#define RESTAURANT_STATE @"state"
-#define RESTAURANT_COUNTRY @"country"
-
 @interface BHGetVenueListWebOperation ()
 
 @property (strong, nonatomic) AFJSONRequestOperation* httpOperation;
@@ -44,20 +26,23 @@
     dateFormatter.dateFormat = @"yyyyMMdd";
     NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
     
-    NSString* baseString = @"https://api.foursquare.com/v2/venues/search?";
+    NSString* baseString = @"https://api.foursquare.com/v2/venues/explore?";
+    NSString* queryString = [@"bubble tea" stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSString* urlString;
     
     if (self.latitude && self.latitude) {
-        urlString = [baseString stringByAppendingFormat:@"ll=%f,%f&client_id=%@&client_secret=%@&categoryId=%@&v=%@", [self.latitude doubleValue], [self.longitude doubleValue], self.clientID, self.clientSecret, self.categoryID, dateString];
+        urlString = [baseString stringByAppendingFormat:@"ll=%f,%f&client_id=%@&client_secret=%@&query=%@&v=%@", [self.latitude doubleValue], [self.longitude doubleValue], self.clientID, self.clientSecret, queryString, dateString];
     }
     else if (self.geocodableString) {
-        urlString = [baseString stringByAppendingFormat:@"near=%@&client_id=%@&client_secret=%@&categoryId=%@&v=%@", self.geocodableString, self.clientID, self.clientSecret, self.categoryID, dateString];
+        urlString = [baseString stringByAppendingFormat:@"near=%@&client_id=%@&client_secret=%@&query=%@&v=%@", self.geocodableString, self.clientID, self.clientSecret, queryString, dateString];
     }
     
     if (self.radius) {
         urlString = [urlString stringByAppendingFormat:@"&radius=%d", [self.radius intValue]];
     }
+    
+    debugLog(urlString);
     
     __weak BHGetVenueListWebOperation* webOperation = self;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
@@ -72,36 +57,41 @@
 
 - (void)parseJson:(NSDictionary*)jsonDict {
     
-    NSDictionary* responseDictionary = [[jsonDict objectForKey:RESPONSE_DICTIONARY] valueOrNil];
-    NSArray* venuesArray = [[responseDictionary objectForKey:VENUES_ARRAY] valueOrNil];
+    NSDictionary* responseDictionary = [jsonDict[@"response"] valueOrNil];
+    NSArray* groupsArray = [responseDictionary[@"groups"] valueOrNil];
+    NSDictionary* groupDictionary = [[groupsArray lastObject] valueOrNil];
+    NSArray* itemsArray = [groupDictionary[@"items"] valueOrNil];
+    
     
     BHGetVenueListResult* result = [[BHGetVenueListResult alloc] init];
     result.restaurantArray = [[NSMutableArray alloc] init];
     
-    for (NSDictionary* restaurantDictionary in venuesArray) {
+    for (NSDictionary* itemDictionary in itemsArray) {
         
-        BHVenue* restaurant = [[BHVenue alloc] init];
-        restaurant.name = [[restaurantDictionary objectForKey:RESTAURANT_NAME] valueOrNil];
-        restaurant.ID = [[restaurantDictionary objectForKey:RESTAURANT_ID] valueOrNil];
+        NSDictionary* venueDictionary = [itemDictionary[@"venue"] valueOrNil];
         
-        NSDictionary* contactDictionary = [[restaurantDictionary objectForKey:RESTAURANT_CONTACT_DICTIONARY] valueOrNil];
-        restaurant.phone = [[contactDictionary objectForKey:RESTAURANT_PHONE] valueOrNil];
+        BHVenue* venue = [[BHVenue alloc] init];
+        venue.name = [venueDictionary[@"name"] valueOrNil];
+        venue.ID = [venueDictionary[@"id"] valueOrNil];
         
-        NSDictionary* locationDictionary = [[restaurantDictionary objectForKey:RESTAURANT_LOCATION_DICTIONARY] valueOrNil];
-        restaurant.address = [[locationDictionary objectForKey:RESTAURANT_ADDRESS] valueOrNil];
-        restaurant.crossStreet = [[locationDictionary objectForKey:RESTAURANT_CROSS_STREET] valueOrNil];
-        restaurant.longitude = [[locationDictionary objectForKey:RESTAURANT_LONGITUDE] valueOrNil];
-        restaurant.latitude = [[locationDictionary objectForKey:RESTAURANT_LATITUDE] valueOrNil];
-        restaurant.distance = [[locationDictionary objectForKey:RESTAURANT_DISTANCE] valueOrNil];
-        restaurant.city = [[locationDictionary objectForKey:RESTAURANT_CITY] valueOrNil];
-        restaurant.postalCode = [[locationDictionary objectForKey:RESTAURANT_POSTAL_CODE] valueOrNil];
-        restaurant.state = [[locationDictionary objectForKey:RESTAURANT_STATE] valueOrNil];
-        restaurant.country = [[locationDictionary objectForKey:RESTAURANT_COUNTRY] valueOrNil];
+        NSDictionary* contactDictionary = [venueDictionary[@"contact"] valueOrNil];
+        venue.phone = [contactDictionary[@"formattedPhone"] valueOrNil];
+        
+        NSDictionary* locationDictionary = [venueDictionary[@"location"] valueOrNil];
+        venue.address = [locationDictionary[@"address"] valueOrNil];
+        venue.crossStreet = [locationDictionary[@"crossStreet"] valueOrNil];
+        venue.longitude = [locationDictionary[@"lng"] valueOrNil];
+        venue.latitude = [locationDictionary[@"lat"] valueOrNil];
+        venue.distance = [locationDictionary[@"distance"] valueOrNil];
+        venue.city = [locationDictionary[@"city"] valueOrNil];
+        venue.postalCode = [locationDictionary[@"postalCode"] valueOrNil];
+        venue.state = [locationDictionary[@"state"] valueOrNil];
+        venue.country = [locationDictionary[@"country"] valueOrNil];
         
         //Only include restaurants that have at least a street address
         
-        if (restaurant.address) {
-            [result.restaurantArray addObject:restaurant];
+        if (venue.address) {
+            [result.restaurantArray addObject:venue];
         }
     }
     
