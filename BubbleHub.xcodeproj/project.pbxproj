@@ -71,6 +71,7 @@
 		FE7E3C3B166DBB7300E9F1E6 /* NSObject+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7E3C3A166DBB7300E9F1E6 /* NSObject+Extensions.m */; };
 		FE7E3C3F166DBCC400E9F1E6 /* BHVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7E3C3E166DBCC400E9F1E6 /* BHVenue.m */; };
 		FE7E3C42166DBCD000E9F1E6 /* BHGetVenueListResult.m in Sources */ = {isa = PBXBuildFile; fileRef = FE7E3C41166DBCD000E9F1E6 /* BHGetVenueListResult.m */; };
+		FEBD899F18025D51000A09C5 /* MediaAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEBD899E18025D51000A09C5 /* MediaAssets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -167,6 +168,7 @@
 		FE7E3C3E166DBCC400E9F1E6 /* BHVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHVenue.m; sourceTree = "<group>"; };
 		FE7E3C40166DBCD000E9F1E6 /* BHGetVenueListResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BHGetVenueListResult.h; sourceTree = "<group>"; };
 		FE7E3C41166DBCD000E9F1E6 /* BHGetVenueListResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BHGetVenueListResult.m; sourceTree = "<group>"; };
+		FEBD899E18025D51000A09C5 /* MediaAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MediaAssets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 		FE7E3B71166DA0BC00E9F1E6 = {
 			isa = PBXGroup;
 			children = (
+				FEBD899E18025D51000A09C5 /* MediaAssets.xcassets */,
 				FE7E3B9D166DA24200E9F1E6 /* iPhone */,
 				FE7E3BB4166DA74E00E9F1E6 /* Web Services */,
 				FE7E3C30166DBA9200E9F1E6 /* Entities */,
@@ -252,9 +255,9 @@
 		FE7E3B9D166DA24200E9F1E6 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				FE7E3B9E166DA25E00E9F1E6 /* Resources */,
-				FE7E3BA3166DA2FF00E9F1E6 /* Views */,
 				FE7E3BA4166DA33C00E9F1E6 /* View Controllers */,
+				FE7E3BA3166DA2FF00E9F1E6 /* Views */,
+				FE7E3B9E166DA25E00E9F1E6 /* Resources */,
 			);
 			path = iPhone;
 			sourceTree = "<group>";
@@ -555,6 +558,11 @@
 				CLASSPREFIX = BH;
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Pietro Rea";
+				TargetAttributes = {
+					FE7E3B7B166DA0BC00E9F1E6 = {
+						DevelopmentTeam = C8T7H79ZD2;
+					};
+				};
 			};
 			buildConfigurationList = FE7E3B76166DA0BC00E9F1E6 /* Build configuration list for PBXProject "BubbleHub" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -581,6 +589,7 @@
 				FE7E3B8B166DA0BC00E9F1E6 /* InfoPlist.strings in Resources */,
 				FE7E3B93166DA0BC00E9F1E6 /* Default.png in Resources */,
 				FE7E3B95166DA0BC00E9F1E6 /* Default@2x.png in Resources */,
+				FEBD899F18025D51000A09C5 /* MediaAssets.xcassets in Resources */,
 				FE7E3B97166DA0BC00E9F1E6 /* Default-568h@2x.png in Resources */,
 				FE7E3BE7166DABF700E9F1E6 /* 74-location.png in Resources */,
 				FE7E3BE8166DABF700E9F1E6 /* 74-location@2x.png in Resources */,
@@ -714,11 +723,15 @@
 		FE7E3B9B166DA0BC00E9F1E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BubbleHub/BubbleHub-Prefix.pch";
 				INFOPLIST_FILE = "BubbleHub/BubbleHub-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE4A2972-DC21-4D8E-8E41-124817617F68";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -726,11 +739,15 @@
 		FE7E3B9C166DA0BC00E9F1E6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BubbleHub/BubbleHub-Prefix.pch";
 				INFOPLIST_FILE = "BubbleHub/BubbleHub-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE4A2972-DC21-4D8E-8E41-124817617F68";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

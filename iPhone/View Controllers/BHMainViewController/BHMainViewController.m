@@ -20,7 +20,6 @@
 @interface BHMainViewController ()
 
 @property (strong, nonatomic) UITabBarController* tabBarController;
-
 @property (strong, nonatomic) BHNearbyViewController* nearbyViewController;
 @property (strong, nonatomic) BHSearchViewController* searchViewController;
 @property (strong, nonatomic) BHFavoritesViewController* favoritesViewController;
@@ -76,19 +75,15 @@
     
     self.nearbyViewController = [[BHNearbyViewController alloc] init];
     UINavigationController* nearbyNavigationController = [[UINavigationController alloc] initWithRootViewController:self.nearbyViewController];
-    nearbyNavigationController.navigationBar.tintColor = [UIColor colorWithRed:173/255.0 green:24/255.0 blue:37/255.0 alpha:1.0];
     
     self.searchViewController = [[BHSearchViewController alloc] init];
     UINavigationController* searchNavigationController = [[UINavigationController alloc] initWithRootViewController:self.searchViewController];
-    searchNavigationController.navigationBar.tintColor = [UIColor colorWithRed:173/255.0 green:24/255.0 blue:37/255.0 alpha:1.0];
     
     self.favoritesViewController = [[BHFavoritesViewController alloc] init];
     UINavigationController* favoritesNavigationController = [[UINavigationController alloc] initWithRootViewController:self.favoritesViewController];
-    favoritesNavigationController.navigationBar.tintColor = [UIColor colorWithRed:173/255.0 green:24/255.0 blue:37/255.0 alpha:1.0];
     
     self.settingsViewController = [[BHSettingsViewController alloc] init];
     UINavigationController* settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:self.settingsViewController];
-    settingsNavigationController.navigationBar.tintColor = [UIColor colorWithRed:173/255.0 green:24/255.0 blue:37/255.0 alpha:1.0];
     
     [viewControllers addObject:nearbyNavigationController];
     [viewControllers addObject:searchNavigationController];
@@ -105,17 +100,13 @@
     [self.view addSubview:self.tabBarController.view];
 }
 
-- (void)viewDidUnload
-{
+- (void)viewDidUnload {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
+
 
 //Call this method to nil out any dynamic or localized content
 - (void)prepareForScreenshot {

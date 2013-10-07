@@ -130,11 +130,6 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 - (IBAction)segmentedControlTapped:(id)sender {
     
     if (self.segmentedControl.selectedSegmentIndex == LIST_VIEW_INDEX)
